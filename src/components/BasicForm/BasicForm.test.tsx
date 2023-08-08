@@ -20,4 +20,8 @@ describe("BasicForm", () => {
     const submitButton = buttons.find((_) => (_ as any).type === "submit");
     expect(submitButton?.textContent).toBe("Save");
   });
+
+  it("should", () => {
+    render(<BasicForm />);
+  });
 });
