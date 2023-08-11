@@ -3,13 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BasicForm } from "./components/BasicForm/BasicForm";
+import { NotInDom } from "./components/NotInDom/NotInDom";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BasicForm />
+    <NotInDom />
   </React.StrictMode>
 );
 
