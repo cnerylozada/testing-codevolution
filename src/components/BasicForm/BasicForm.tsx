@@ -6,7 +6,11 @@ interface IBasicForm {
 }
 
 export const BasicForm = () => {
-  const { register, handleSubmit } = useForm<IBasicForm>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<IBasicForm>({
     mode: "all",
   });
   const onSubmit = (data: IBasicForm) => {
@@ -17,16 +21,34 @@ export const BasicForm = () => {
       <div>Basic Form</div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 space-y-4">
-          <input
-            {...register("name")}
-            placeholder="Name"
-            className="block border w-full"
-          />
-          <input
-            {...register("age")}
-            placeholder="Age"
-            className="block border w-full"
-          />
+          <div>
+            <label htmlFor="name-input">Name</label>
+            <input
+              {...register("name", {
+                required: { value: true, message: "Name is required" },
+              })}
+              id="name-input"
+              placeholder="Enter your name"
+              className="block border w-full"
+            />
+            {errors.name && (
+              <div className="text-xs text-red-400">{errors.name.message}</div>
+            )}
+          </div>
+          <div>
+            <label htmlFor="age-input">Age</label>
+            <input
+              {...register("age", {
+                required: { value: true, message: "Age is required" },
+              })}
+              id="age-input"
+              placeholder="Enter your age"
+              className="block border w-full"
+            />
+            {errors.age && (
+              <div className="text-xs text-red-400">{errors.age.message}</div>
+            )}
+          </div>
         </div>
         <div className="space-x-4">
           <button
@@ -39,6 +61,7 @@ export const BasicForm = () => {
             Mock button
           </button>
           <button
+            disabled={!isValid}
             type="submit"
             className="bg-green-300"
             data-testid="submitButton"
