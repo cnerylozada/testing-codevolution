@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface IBasicForm {
@@ -13,12 +14,15 @@ export const BasicForm = () => {
   } = useForm<IBasicForm>({
     mode: "all",
   });
+  const [isSaved, setIsSaved] = useState(false);
   const onSubmit = (data: IBasicForm) => {
     console.log("data submitted", data);
+    setIsSaved(true);
   };
   return (
     <div>
       <div>Basic Form</div>
+      {isSaved && <div data-testid="dataSavedMessage">Data was saved </div>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 space-y-4">
           <div>

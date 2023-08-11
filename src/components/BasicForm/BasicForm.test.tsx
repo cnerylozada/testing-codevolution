@@ -46,4 +46,17 @@ describe("BasicForm", () => {
     expect(ageInput).toHaveValue("10");
     expect(submitButton).not.toBeDisabled();
   });
+
+  it("should submit data when form is valid", async () => {
+    render(<BasicForm />);
+    const nameInput = screen.getByLabelText("Name");
+    const ageInput = screen.getByLabelText("Age");
+    const submitButton = screen.getByTestId("submitButton");
+    await act(async () => {
+      fireEvent.change(nameInput, { target: { value: "Cristh" } });
+      fireEvent.change(ageInput, { target: { value: "10" } });
+      fireEvent.submit(submitButton);
+    });
+    expect(screen.getByTestId("dataSavedMessage")).toBeInTheDocument();
+  });
 });
