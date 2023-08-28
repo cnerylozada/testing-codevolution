@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { BasicForm } from "./BasicForm";
 
 describe("BasicForm", () => {
@@ -22,6 +23,16 @@ describe("BasicForm", () => {
     expect(submitButton).toBeDisabled();
   });
 
+  it("should focus nameInput after first tab", async () => {
+    const user = userEvent.setup();
+    render(<BasicForm />);
+    await user.tab();
+    const nameInput = screen.getByRole("textbox", {
+      name: /name/i,
+    });
+    expect(nameInput).toHaveFocus();
+  });
+
   it("should render errors if you trigger onBlur event in any input", async () => {
     render(<BasicForm />);
     const nameInput = screen.getByLabelText("Name");
@@ -34,13 +45,14 @@ describe("BasicForm", () => {
   });
 
   it("should able submitButton when form is valid", async () => {
+    const user = userEvent.setup();
     render(<BasicForm />);
     const nameInput = screen.getByLabelText("Name");
     const ageInput = screen.getByLabelText("Age");
     const submitButton = screen.getByRole("button", { name: /save/i });
     await act(async () => {
-      fireEvent.change(nameInput, { target: { value: "Cristh" } });
-      fireEvent.change(ageInput, { target: { value: "10" } });
+      await user.type(nameInput, "Cristh");
+      await user.type(ageInput, "10");
     });
     expect(nameInput).toHaveValue("Cristh");
     expect(ageInput).toHaveValue("10");
