@@ -3,13 +3,15 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BasicForm } from "./components/BasicForm/BasicForm";
+import { Users } from "./components/Users/Users";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BasicForm />
+    {/* <BasicForm /> */}
+    <Users />
   </React.StrictMode>
 );
 
