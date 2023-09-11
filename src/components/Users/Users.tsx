@@ -15,7 +15,7 @@ export const Users = () => {
         <div>
           {users.map((_, index) => {
             return (
-              <div key={index}>
+              <div key={index} data-testid="userFromService">
                 id: {_.id} Name: {_.name}
               </div>
             );
